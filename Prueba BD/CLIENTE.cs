@@ -17,7 +17,7 @@ namespace Prueba_BD
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CLIENTE()
         {
-            this.PEDIDOS = new HashSet<PEDIDO>();
+            this.PEDIDOS = new HashSet<PEDIDO>(); 
         }
     
         public int id { get; set; }
