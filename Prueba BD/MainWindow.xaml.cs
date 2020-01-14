@@ -23,18 +23,44 @@ namespace Prueba_BD
     public partial class MainWindow : Window
     {
         private SQL_Database_AitorEntities context;
+        CLIENTE clienteNuevo;
+
         public MainWindow()
         {
             InitializeComponent();
+            clienteNuevo = new CLIENTE();
             context = new SQL_Database_AitorEntities();
-            //context.CLIENTES.Load();
-            //clientesListBox.DataContext = context.CLIENTES.Local;
+            context.CLIENTES.Load();
+            clientesListBox.DataContext = context.CLIENTES.Local;
+            eliminarClientesComboBox.DataContext = context.CLIENTES.Local;
+            InsertarStackPanel.DataContext = clienteNuevo;
+            modificarClientesComboBox.DataContext = context.CLIENTES.Local;
 
-            var consulta = from    n in context.CLIENTES
+            /*var consulta = from    n in context.CLIENTES
                            where   n.genero == "MALE"
                            orderby n.nombre
                            select  n;
-            clientesListBox.DataContext = new ObservableCollection<CLIENTE>(consulta.ToList());
+            clientesListBox.DataContext = new ObservableCollection<CLIENTE>(consulta.ToList());*/
+        }
+
+        private void Insertar_Click(object sender, RoutedEventArgs e)
+        {
+            context.CLIENTES.Add(clienteNuevo);
+            context.SaveChanges();
+            clienteNuevo = new CLIENTE();
+            InsertarStackPanel.DataContext = clienteNuevo;
+        }
+
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            CLIENTE cliente = eliminarClientesComboBox.SelectedItem as CLIENTE;
+            context.CLIENTES.Remove(cliente);
+            context.SaveChanges();
+        }
+
+        private void Modificar_Click(object sender, RoutedEventArgs e)
+        {
+            context.SaveChanges();
         }
     }
 }

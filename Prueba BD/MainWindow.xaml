@@ -5,10 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Prueba_BD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Entity Framework" Height="450" Width="800" Icon="client.ico">
     <Grid>
-        <ListBox x:Name="clientesListBox" ItemsSource="{Binding}" DisplayMemberPath="nombre">
-            
-        </ListBox>
+        <TabControl>
+            <!--#region LISTBOX-->
+            <TabItem Header="Listbox">
+                <ListBox x:Name="clientesListBox" ItemsSource="{Binding}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                    <Run Text="{Binding id}"/>
+                                    <Run Text=" - "/>
+                                    <Run Text="{Binding nombre}" />
+                                    <Run Text="{Binding apellido}"/>
+                            </TextBlock>
+                        </DataTemplate>
+			        </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <!--#endregion-->
+            <!--#region INSERTAR-->
+            <TabItem Header="Insertar">
+                <StackPanel x:Name="InsertarStackPanel">
+                    <TextBlock Text="Identificador" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding id}"></TextBox>
+                    <TextBlock Text="Nombre" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding nombre}"></TextBox>
+                    <TextBlock Text="Apellido" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding apellido}"></TextBox>
+                    <Button  Margin="10, 10, 0, 0" Click="Insertar_Click" Width="60" HorizontalAlignment="Left">Insertar</Button>
+                </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+            <!--#region ELIMINAR-->
+            <TabItem Header="Eliminar">
+                <StackPanel>
+                    <ComboBox x:Name="eliminarClientesComboBox" ItemsSource="{Binding}" Width="150" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0, 10, 0, 0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding id}"></Run>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Margin="0, 10, 0, 0" Width="60" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Eliminar_Click">Eliminar</Button>
+                </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+            <!--#region MODIFICAR-->
+            <TabItem Header="Modificar">
+                <StackPanel x:Name="ModificarStackPanel" DataContext="{Binding ElementName=modificarClientesComboBox, Path=SelectedItem}">
+                    <ComboBox x:Name="modificarClientesComboBox" ItemsSource="{Binding}" Width="150" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0, 10, 0, 0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding id}"></Run> 
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Identificador" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding id}"></TextBox>
+                    <TextBlock Text="Nombre" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding nombre}"></TextBox>
+                    <TextBlock Text="Apellido" Margin="10, 10, 10, 10"></TextBlock>
+                    <TextBox Margin="10, 0, 10, 10" Text="{Binding apellido}"></TextBox>
+                    <Button  Margin="10, 10, 0, 0" Click="Modificar_Click" Width="60" HorizontalAlignment="Left">Modificar</Button>
+                </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+        </TabControl>
     </Grid>
 </Window>
